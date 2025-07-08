@@ -57,7 +57,6 @@ $excludedKeywords_ScheduledTasks = @(
     '\Mozilla Firefox Default Browser Agent',
     '\Firefox Background Update',
     '\ARM\AdobeARM.exe',
-    '\MMStart-*',
     '\VMware\'
 )
 
