@@ -17,9 +17,6 @@ Results are exported in a JSON structure containing:
 - String Normalization and Trimming
 Ensures consistent formatting of .Value fields, eliminates padding artifacts from poorly registered launch commands.
 - Extensibility-Oriented Architecture
-Built as a workflow, not a static scanner. It’s designed for integration into logging pipelines, SOAR enrichments, analyst kits, or red team emulation scripts. Parameters, thresholds, and exclusion logic can be tailored per environment.
-
-If you'd like, I can format this into markdown sections for your README.md or break out each functionality as labeled features. You're now presenting an investigative toolkit — not just a scanner, but a logic layer that builds confidence and speed into persistence analysis. Let’s get it published strong.
 
 E.g. Output sent to Slack detailing the three persistence scans.
 ![pss](https://github.com/user-attachments/assets/67f0d64f-3f80-4e46-9bf7-a3d9ad257866)
