@@ -1,17 +1,14 @@
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
-# Module setup
 $zip_file_path          = "C:\PersistenceSniper.zip"
 $forensic_analysis_path = "C:\mmsoc"
 $modulePath             = "PersistenceSniper-main\PersistenceSniper\PersistenceSniper.psd1"
 $fullModulePath         = Join-Path $forensic_analysis_path $modulePath
 
-# Technique toggles
 $runAndRunOnce_enabled    = $true
 $scheduledTasks_enabled   = $true
 $startupPrograms_enabled  = $true
 
-# Trusted publishers (used for exclusion only if signature is valid)
 $trustedSigners = @(
     'Microsoft Corporation','Microsoft Windows','Microsoft Windows Hardware Compatibility Publisher',
     'Samsung Electronics CO., LTD.','Valve Corp.','Spotify AB','Intel Corporation','Google LLC',
@@ -19,17 +16,19 @@ $trustedSigners = @(
     'Realtek Semiconductor Corp.','Logitech Inc','Slack Technologies','Palo Alto Networks',
     'CyberArk Software Ltd.','Zoom Video Communications','Global Relay Communications Inc.',
     'Adobe Systems Incorporated','Omnissa','Okta','Dell Technologies Inc.',
-    'Corel Corporation','Box','Cisco WebEx LLC', 'Microsoft Windows Publisher'
+    'Corel Corporation','Box','Cisco WebEx LLC','Microsoft Windows Publisher',
+    'RingCentral','MiniTool Software Limited','HP Inc.'
 )
 
-# ScheduledTasks path exclusions (used only if signature is valid)
 $excludedKeywords_ScheduledTasks = @(
     '\Microsoft\','\MicrosoftEdgeUpdate','\OneDrive','\Adobe Acrobat Update Task','\GoogleUpdater',
     '\Mozilla\Firefox','\NVIDIA App SelfUpdate','\NahimicTask','\Mozilla Firefox Default Browser Agent',
-    '\Firefox Background Update','\ARM\AdobeARM.exe','\MMStart-*','\VMware\'
+    '\Firefox Background Update','\ARM\AdobeARM.exe','\MMStart-*','\VMware\',
+    '\Dell SupportAssistAgent AutoUpdate','\Launch Adobe CCXProcess','\PowerToys\',
+    '\Okta Verify Activation Task','\HP\HP Print Scan Doctor\Printer Health Monitor',
+    '\HP\HP Print Scan Doctor\Printer Health Monitor Logon','\nWizard_{','\VMwareHubHealthMonitoringJob'
 )
 
-# Import scanning module
 try {
     Expand-Archive -Path $zip_file_path -DestinationPath $forensic_analysis_path -Force
     Import-Module $fullModulePath -Force
@@ -37,10 +36,9 @@ try {
     return
 }
 
-# Initialize containers
-$runResults     = @()
-$taskResults    = @()
-$startupResults = @()
+$runResults      = @()
+$taskResults     = @()
+$startupResults  = @()
 $runFindings     = ''
 $taskFindings    = ''
 $startupFindings = ''
@@ -48,11 +46,9 @@ $runExceeded     = $false
 $taskExceeded    = $false
 $startupExceeded = $false
 
-# Line breaks
-$linebreak   = "`n"
-$doublebreak = "`n`n"
+$linebreak       = "`n"
+$doublebreak     = "`n`n"
 
-# Run and RunOnce keys
 if ($runAndRunOnce_enabled) {
     $rawRun = Find-AllPersistence -PersistenceMethod RunAndRunOnce
     foreach ($item in $rawRun) {
@@ -85,7 +81,6 @@ if ($runAndRunOnce_enabled) {
     $runExceeded = $runFindings.Length -gt 2000
 }
 
-# ScheduledTasks with signature-first exclusion logic
 if ($scheduledTasks_enabled) {
     $rawTasks = Find-AllPersistence -PersistenceMethod ScheduledTasks
     foreach ($item in $rawTasks) {
@@ -125,7 +120,6 @@ if ($scheduledTasks_enabled) {
     $taskExceeded = $taskFindings.Length -gt 2000
 }
 
-# Startup folder and registry entries
 if ($startupPrograms_enabled) {
     $rawStartup = Find-AllPersistence -PersistenceMethod StartupPrograms
     foreach ($item in $rawStartup) {
@@ -158,11 +152,9 @@ if ($startupPrograms_enabled) {
     $startupExceeded = $startupFindings.Length -gt 2000
 }
 
-# Combined output size check
 $totalLength      = ($runFindings.Length + $taskFindings.Length + $startupFindings.Length)
 $combinedExceeded = $totalLength -gt 2000
 
-# Structured final output
 $json_output = [PSCustomObject]@{
     RunAndRunOnce = @{
         enabled           = $runAndRunOnce_enabled
@@ -190,5 +182,4 @@ $json_output = [PSCustomObject]@{
     }
 }
 
-# Output results as JSON
 $json_output | ConvertTo-Json -Depth 4
