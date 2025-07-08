@@ -22,5 +22,7 @@ E.g. Output sent to Slack detailing the three persistence scans.
 ![pss](https://github.com/user-attachments/assets/67f0d64f-3f80-4e46-9bf7-a3d9ad257866)
 ![image](https://github.com/user-attachments/assets/09796cef-e208-4c0c-b8a2-0b9c9af41a96)
 
+![pss3x](https://github.com/user-attachments/assets/e1915116-32e2-48a5-9785-5626e56ded4d)
+![pss3xc](https://github.com/user-attachments/assets/832afc57-7f70-4172-a43d-9c8d4548bc3e)
 
 Use it and improve it as you fit! :) 
