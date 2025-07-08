@@ -20,6 +20,7 @@ Ensures consistent formatting of .Value fields, eliminates padding artifacts fro
 
 E.g. Output sent to Slack detailing the three persistence scans.
 ![pss](https://github.com/user-attachments/assets/67f0d64f-3f80-4e46-9bf7-a3d9ad257866)
+![image](https://github.com/user-attachments/assets/09796cef-e208-4c0c-b8a2-0b9c9af41a96)
 
 
 Use it and improve it as you fit! :) 
