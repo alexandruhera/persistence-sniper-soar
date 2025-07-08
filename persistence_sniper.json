@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "PersistenceScannerOutput",
+  "type": "object",
+  "properties": {
+    "RunAndRunOnce": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "findings": { "type": "string" },
+        "findings_exceeded": { "type": "boolean" },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Path": { "type": "string" },
+              "Value": { "type": "string" },
+              "Status": { "type": "string" },
+              "Signer": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "ScheduledTasks": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "findings": { "type": "string" },
+        "findings_exceeded": { "type": "boolean" },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Path": { "type": "string" },
+              "Value": { "type": "string" },
+              "Status": { "type": "string" },
+              "Signer": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "StartupPrograms": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "findings": { "type": "string" },
+        "findings_exceeded": { "type": "boolean" },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Path": { "type": "string" },
+              "Value": { "type": "string" },
+              "Status": { "type": "string" },
+              "Signer": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "OutputMonitor": {
+      "type": "object",
+      "properties": {
+        "RunAndRunOnce_Exceeded": { "type": "boolean" },
+        "ScheduledTasks_Exceeded": { "type": "boolean" },
+        "StartupPrograms_Exceeded": { "type": "boolean" },
+        "CombinedExceeded": { "type": "boolean" }
+      }
+    }
+  }
+}
