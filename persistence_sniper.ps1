@@ -1,7 +1,7 @@
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 $zip_file_path          = "C:\PersistenceSniper.zip"
-$forensic_analysis_path = "C:\mmsoc"
+$forensic_analysis_path = "C:\soc"
 $modulePath             = "PersistenceSniper-main\PersistenceSniper\PersistenceSniper.psd1"
 $fullModulePath         = Join-Path $forensic_analysis_path $modulePath
 
